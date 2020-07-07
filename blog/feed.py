@@ -4,9 +4,9 @@ from .models import Post
 
 
 class AllPostsFeed(Feed):
-    title = 'HelloDjango-blog-tutorial'
+    title = '周末小站'
     link = '/'
-    description = 'HelloDjango-blog-tutorial 全部文章'
+    description = '周末小站的全部文章'
 
     def items(self):
         return Post.objects.all()

@@ -77,9 +77,6 @@ class TagView(IndexView):
         return super(TagView, self).get_queryset().filter(tags=t).order_by('-created_time')
 
 
-class SearchView(ListView):
-    def get_queryset(self):
-        q = self.Get.get
 def search(request):
     q = request.GET.get('q')
     if not q:
