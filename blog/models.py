@@ -64,7 +64,7 @@ class Post(models.Model):
                 'markdown.extensions.codehilite',
             ]
         )
-        self.excerpt = strip_tags(md.convert(self.body))[:30]
+        self.excerpt = strip_tags(md.convert(self.body))[:30] + '...'
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
