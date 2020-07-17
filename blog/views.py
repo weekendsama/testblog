@@ -8,7 +8,27 @@ from django.contrib import messages
 from markdown.extensions.toc import TocExtension
 from .models import Post, Category, Tag
 from django.views.generic import ListView, DetailView
-# Create your views here.
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets, mixins
+from .serializers import PostListSerializer, PostRetrieveSerializer
+
+
+class PostViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    serializer_class = PostListSerializer
+    queryset = Post.objects.all()
+    pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
+    serializer_class_table = {
+        'list': PostListSerializer,
+        'retrieve': PostRetrieveSerializer,
+    }
+
+    def get_serializer_class(self):
+        return self.serializer_class_table.get(self.action, super().get_serializer_class())
+
+
+index = PostViewSet.as_view({'get': 'list'})
 
 
 class IndexView(ListView, PaginationMixin):

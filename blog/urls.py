@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 
 app_name = 'blog'
@@ -10,4 +9,5 @@ urlpatterns = [
     path('categories/<int:pk>/', views.CategoryView.as_view(), name='category'),
     path('tags/<int:pk>/', views.TagView.as_view(), name='tag'),
     path('search/', views.search, name='search'),
+    path('api/index/', views.index),
 ]
